@@ -1,54 +1,34 @@
-<?php 
-function snail(array $array): array {
-  if ($array === [[]]) {
-    return array();
-  }
-  $returnArr = array();
-  $arrDupe = $array;
-  $size = sizeof($array) - 1;
-  $index = 0;
-  $horizontal = 0;
-  $vertical = 0;
-  $area = pow(sizeof($array), 2);
-  while ($index < $area) {
-    unset($arrDupe[$vertical][$horizontal]);
-    if (count($array) > 0) {
-      array_push($returnArr, $array[$vertical][$horizontal]);
-    }
-    else {
-      array_push($returnArr, $array[$horizontal]);
-    }
-    if ($index == $area - pow(sizeof($array) - 2, 2) - 1) {
-      $recurredArr = array();
-      foreach ($arrDupe as $row) {
-        if (!empty($row)) {
-          array_push($recurredArr, array_values($row));
-        }
+<?php
+function find_uniq($a) {
+    $testCase = str_split(strtolower($a[0]));
+    for($i = 0; $i < sizeof($a); $i++) {
+      $test = str_split(strtolower($a[$i]));
+      $testEnd = str_split(strtolower($a[sizeof($a) - 1]));
+      if (array_diff($testEnd, $testCase) == array() && !array_diff($test, $testCase) == array()) {
+          return $a[$i];
       }
-      print_r($recurredArr);
-      foreach(snail($recurredArr) as $value) {
-        array_push($returnArr, $value);
-        $index++;
+      if ($i == sizeof($a) - 1 && !array_diff($testEnd, str_split($a[sizeof($a) - 2])) == array()) {
+        return $a[$i];
+      }
+      if (strlen($a[$i]) > 0 && strlen(trim($a[$i])) == 0 || $a[$i] == "") {
+        $testCase = str_split(strtolower($a[$i]));
+        unset($a[$i]);
+        array_shift($a);
       }
     }
-    if ($vertical === 0 && $horizontal < $size) {
-      $horizontal++;
-    }
-    else if ($horizontal === $size && $vertical < $size) {
-      $vertical++;
-    }
-    else if ($vertical === $size && $horizontal > 0) {
-      $horizontal--;
-    }
-    else if ($horizontal === 0 && $vertical !== 0) {
-      $vertical--;
-    }
-    $index++;
+    return $a[0];
   }
-  return $returnArr;
-}
 
-# [0, 0], [0, 1], [0, 2], [1, 2], [2, 2], [2, 1], [2, 0], [1, 0], [1, 1]
-# [0, 0], [0, 1], [0, 2], [0, 3], [1, 3], [2, 3], [3, 3], [3, 2], [3, 1], [3, 0], [2, 0], [1, 0], [1, 1], [1, 2], [2, 2], [2, 1]
-# Inner areas
-# 0, 0, 1, 4, 9, 16, 25, 36...
+/*
+    There is an array of strings. All strings contains similar letters except one. Try to find it!
+
+    find_uniq([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]); // => 'BbBb'
+    find_uniq([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]); // => 'foo'
+    Strings may contain spaces. Spaces is not significant, only non-spaces symbols matters. E.g. string that contains only spaces is like empty string.
+
+    It’s guaranteed that array contains more than 3 strings.
+
+    This is the second kata in series
+
+    https://www.codewars.com/kata/585d8c8a28bc7403ea0000c3/train/php
+*/
