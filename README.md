@@ -1,6 +1,8 @@
 # codewars-challenge
 Just the solution to what i thought was a tough php problem today, took me a few hours so i will submit this as my days work!
 
+Adding a few more challenged as time goes on
+
 Given an n x n array, return the array elements arranged from outermost elements to the middle element, traveling clockwise.
 
 array = [[1,2,3],
