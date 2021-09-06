@@ -1,4 +1,7 @@
 # codewars-challenge
+
+A collection of challenges
+
 Just the solution to what i thought was a tough php problem today, took me a few hours so i will submit this as my days work!
 
 Adding a few more challenged as time goes on
