@@ -32,3 +32,4 @@ def squaring_loop(available_cans):
     beeramid(1500, 2); // should === 12
     beeramid(5000, 3); // should === 16
 """
+
